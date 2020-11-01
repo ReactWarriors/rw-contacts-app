@@ -2,6 +2,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { ContactsTable } from "./ContactsTable";
 import { useContacts } from "./useContacts";
 
@@ -31,7 +32,7 @@ export const Contacts = () => {
         <Grid item xs={12}>
           {(() => {
             if (contacts.isLoading) {
-              return <div>...loading</div>;
+              return <CircularProgress />;
             }
 
             if (contacts.isError) {
