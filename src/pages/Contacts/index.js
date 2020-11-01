@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 
 const useContacts = () => {
   const [data, setData] = useState([]);
@@ -43,5 +45,13 @@ export const Contacts = () => {
     return <div>...error</div>;
   }
 
-  return <div>Contacts {contacts.data[0].name.first}</div>;
+  return (
+    <Container>
+      <Grid container>
+        <Grid item xs={12}>
+          <div>Contacts {contacts.data[0].name.first}</div>
+        </Grid>
+      </Grid>
+    </Container>
+  );
 };
