@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-export const Contacts = () => {
-  const [contacts, setContacts] = useState([]);
+const useContacts = () => {
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -10,8 +10,11 @@ export const Contacts = () => {
       try {
         setIsLoading(true);
         const response = await fetch("https://randomuser.me/api/?results=200");
-        const { results } = await response.json();
-        setContacts(results);
+        const { results, error } = await response.json();
+        if (error) {
+          throw new Error(error);
+        }
+        setData(results);
         setIsError(false);
       } catch (e) {
         setIsError(true);
@@ -22,12 +25,23 @@ export const Contacts = () => {
     getContacts();
   }, []);
 
-  if (isLoading) {
+  return {
+    data,
+    isLoading,
+    isError,
+  };
+};
+
+export const Contacts = () => {
+  const contacts = useContacts();
+
+  if (contacts.isLoading) {
     return <div>...loading</div>;
   }
 
-  if (isError) {
+  if (contacts.isError) {
     return <div>...error</div>;
   }
-  return <div>Contacts {contacts[0].name.first}</div>;
+
+  return <div>Contacts {contacts.data[0].name.first}</div>;
 };
