@@ -2,6 +2,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import { ContactsTable } from "./ContactsTable";
 import { useContacts } from "./useContacts";
 
 const useStyles = makeStyles((theme) =>
@@ -19,14 +20,6 @@ export const Contacts = () => {
   const classes = useStyles();
   const contacts = useContacts();
 
-  if (contacts.isLoading) {
-    return <div>...loading</div>;
-  }
-
-  if (contacts.isError) {
-    return <div>...error</div>;
-  }
-
   return (
     <Container className={classes.root}>
       <Grid container>
@@ -36,7 +29,16 @@ export const Contacts = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <div>{contacts.data[0].name.first}</div>
+          {(() => {
+            if (contacts.isLoading) {
+              return <div>...loading</div>;
+            }
+
+            if (contacts.isError) {
+              return <div>...error</div>;
+            }
+            return <ContactsTable data={contacts.data} />;
+          })()}
         </Grid>
       </Grid>
     </Container>
