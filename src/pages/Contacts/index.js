@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -57,12 +57,16 @@ export const Contacts = () => {
 
   const [filters, setFilters] = useState(FiltersDefaultValue);
 
-  const updateFilter = (name, value) => {
+  const updateFilter = useCallback((name, value) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [name]: value,
     }));
-  };
+  }, []);
+
+  const clearFilters = useCallback(() => {
+    setFilters(FiltersDefaultValue);
+  }, []);
 
   const filteredContacts = contacts.data
     .filter((c) => filterByFullname(c.name, filters.fullname))
@@ -84,7 +88,11 @@ export const Contacts = () => {
           </Box>
         </Grid>
         <Grid item xs={12} className={classes.filtersContainer}>
-          <ContactsFilters filters={filters} updateFilter={updateFilter} />
+          <ContactsFilters
+            filters={filters}
+            updateFilter={updateFilter}
+            clearFilters={clearFilters}
+          />
         </Grid>
         <Grid item xs={12}>
           {(() => {
