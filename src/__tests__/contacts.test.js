@@ -8,6 +8,7 @@ import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { server } from "../serverTests";
 import { Contacts } from "../pages/Contacts";
+import { users } from "../__fixtures__/users";
 
 beforeAll(() => server.listen());
 
@@ -140,5 +141,51 @@ describe(`contacts data view mode`, () => {
     );
 
     window.localStorage.clear();
+  });
+});
+
+describe(`contacts filter`, () => {
+  test(`by default`, async () => {
+    render(<Contacts />);
+    const loader = screen.getByTestId("contacts-loader");
+
+    await waitForElementToBeRemoved(loader);
+
+    expect(screen.queryAllByTestId("contacts-table-row")).toHaveLength(2);
+  });
+
+  test(`by fullname`, async () => {
+    const inputFullnameValue = users[0].name.first;
+
+    render(<Contacts />);
+    const loader = screen.getByTestId("contacts-loader");
+
+    await waitForElementToBeRemoved(loader);
+
+    userEvent.type(screen.getByTestId("field-fullname"), inputFullnameValue);
+
+    expect(screen.queryAllByTestId("contacts-table-row")).toHaveLength(1);
+    expect(
+      screen.getByTestId("contacts-table-cell-fullname")
+    ).toHaveTextContent(inputFullnameValue);
+  });
+
+  test(`should clear`, async () => {
+    const inputFullnameValue = users[0].name.first;
+
+    render(<Contacts />);
+    const loader = screen.getByTestId("contacts-loader");
+
+    await waitForElementToBeRemoved(loader);
+
+    userEvent.type(screen.getByTestId("field-fullname"), inputFullnameValue);
+    userEvent.click(
+      screen.getByRole("button", {
+        name: /clear/i,
+      })
+    );
+
+    expect(screen.queryAllByTestId("contacts-table-row")).toHaveLength(2);
+    expect(screen.getByTestId("field-fullname")).toHaveValue("");
   });
 });

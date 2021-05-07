@@ -18,6 +18,9 @@ const FieldFullname = memo(({ value, onChange }) => (
     variant="outlined"
     value={value}
     onChange={onChange}
+    inputProps={{
+      "data-testid": "field-fullname",
+    }}
   />
 ));
 

@@ -35,11 +35,11 @@ export const ContactsTable = ({ data }) => {
         </TableHead>
         <TableBody>
           {data.map((contact) => (
-            <TableRow key={contact.login.uuid}>
+            <TableRow key={contact.login.uuid} data-testid="contacts-table-row">
               <TableCell>
                 <Avatar src={contact.picture.thumbnail} alt="" />
               </TableCell>
-              <TableCell>
+              <TableCell data-testid="contacts-table-cell-fullname">
                 {contact.name.title} {contact.name.first} {contact.name.last}
               </TableCell>
               <TableCell>

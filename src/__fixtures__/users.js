@@ -1,5 +1,62 @@
 export const users = [
   {
+    gender: "male",
+    name: {
+      title: "Mr",
+      first: "Haron",
+      last: "Hultink",
+    },
+    location: {
+      street: {
+        number: 3331,
+        name: "Keucheniuspad",
+      },
+      city: "Overbetuwe",
+      state: "Groningen",
+      country: "Netherlands",
+      postcode: 88092,
+      coordinates: {
+        latitude: "47.2127",
+        longitude: "-38.3971",
+      },
+      timezone: {
+        offset: "-12:00",
+        description: "Eniwetok, Kwajalein",
+      },
+    },
+    email: "haron.hultink@example.com",
+    login: {
+      uuid: "5505ea6d-0d3a-4728-864c-18e39d616e64",
+      username: "crazyrabbit210",
+      password: "gunner",
+      salt: "b1pQDiFs",
+      md5: "31dab925c39fce33719ab3f12745ee8f",
+      sha1: "43cdc4f97a2faf1e354655bc01a86592c3c1ccc4",
+      sha256:
+        "f76c4d309a8612a9ef3276e7e9e6781ec4091197a2de3202554f9d01cf85565c",
+    },
+    dob: {
+      date: "1971-12-08T16:11:29.719Z",
+      age: 50,
+    },
+    registered: {
+      date: "2018-03-24T10:53:57.387Z",
+      age: 3,
+    },
+    phone: "(684)-038-4262",
+    cell: "(916)-920-9277",
+    id: {
+      name: "BSN",
+      value: "77466825",
+    },
+    picture: {
+      large: "https://randomuser.me/api/portraits/men/19.jpg",
+      medium: "https://randomuser.me/api/portraits/med/men/19.jpg",
+      thumbnail: "https://randomuser.me/api/portraits/thumb/men/19.jpg",
+    },
+    nat: "NL",
+  },
+  {
     gender: "female",
     name: {
       title: "Mrs",
